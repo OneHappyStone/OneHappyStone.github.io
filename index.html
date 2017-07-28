@@ -143,6 +143,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-druid-SQL解析源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/28/druid-SQL解析源码分析/">druid-SQL解析源码分析</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/28/druid-SQL解析源码分析/" class="archive-article-date">
+  	<time datetime="2017-07-28T02:01:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>Token</code>类：这个类中涵盖了SQL语法中的一些字符声明。而<code>KeyWords</code>这个类中已Map格式存储了SQL语法中的<code>121</code>个关键字。<br><code>Keywords</code>如图:</p>
+<p><img src="../images/Keywords.png" alt="Kerwords"></p>
+<p><code>Lexer</code>类：这个类中有个方法<code>nextToken()</code>用来对传入SQL逐个字符进行分析。其中关系图如下：</p>
+<p><img src="../images/Lexer.png" alt="Lexer"></p>
+<p>SQL解析类中主要几个关系如下图所示：</p>
+<p><img src="../images/SQLParser.png" alt="SQLParser"></p>
+<p>其中<code>MySqlSelectParser</code>类中有个<code>parseTableSourceQueryTableExpr(tableReference)</code>,<code>parseFrom(queryBlock)</code>方法来解析表。</p>
+<blockquote>
+<p>1.整个查询语句的封装为<code>MysqlSelectQueryBlock</code>实例。</p>
+<p>2.查询参数会封装为<code>ArrayList</code>形式的<code>SQLSelectItem</code>实例。</p>
+<p>3.表名会被封装为<code>SQLExprTableSource</code>实例，并且实例参数名就为表名本身。</p>
+<p>4.查询条件会被封装为<code>SQLBinaryOpExpr</code>实例，并且实例参数名就是完整的where条件后的语句。</p>
+<p>以上的2，3，4中的类都为1中类的参数。</p>
+</blockquote>
+<p>其封装关系类图如下:</p>
+<p><img src="../images/MysqlSelectQueryBlock.png" alt="MysqlSelectQueryBlock"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/28/druid-SQL解析源码分析/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
