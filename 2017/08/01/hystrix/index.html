@@ -6,20 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://oenhappystone.github.io">
-  <title>JVM之Classloader学习总结 | Hexo</title>
+  <title>Spring Cloud Netflix Hystrix使用 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java Classloader学习总结我们都知道Java程序都是运行在 JVM (Java Virtual Machine) 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以.class结尾的二进制文件而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。 而在Java中有3中内置类型的ClassLoader，为别为:  Bootstr">
+  <meta name="description" content="Netflix HystrixHystrix 是一个实现了断路器模式的组件，在微服务的多层调用环境中进行服务异常调用的链路传播。从而很好的保护众多其他服务,避免级联故障。 其组件功能性图示如下:  下面来介绍如何使用Hystrix.1.添加相应的依赖：1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/gro">
+<meta name="keywords" content="Spring Cloud">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM之Classloader学习总结">
-<meta property="og:url" content="http://oenhappystone.github.io/2017/07/28/JVM之Classloader学习总结/index.html">
+<meta property="og:title" content="Spring Cloud Netflix Hystrix使用">
+<meta property="og:url" content="http://oenhappystone.github.io/2017/08/01/hystrix/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Java Classloader学习总结我们都知道Java程序都是运行在 JVM (Java Virtual Machine) 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以.class结尾的二进制文件而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。 而在Java中有3中内置类型的ClassLoader，为别为:  Bootstr">
-<meta property="og:image" content="http://oenhappystone.github.io/images/classloader.png">
-<meta property="og:updated_time" content="2017-07-28T07:05:36.000Z">
+<meta property="og:description" content="Netflix HystrixHystrix 是一个实现了断路器模式的组件，在微服务的多层调用环境中进行服务异常调用的链路传播。从而很好的保护众多其他服务,避免级联故障。 其组件功能性图示如下:  下面来介绍如何使用Hystrix.1.添加相应的依赖：1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/gro">
+<meta property="og:image" content="http://oenhappystone.github.io/images/HystrixFallback.png">
+<meta property="og:image" content="http://oenhappystone.github.io/images/hystrix-dashboard.png">
+<meta property="og:image" content="http://oenhappystone.github.io/images/hystrix-stream.png">
+<meta property="og:updated_time" content="2017-08-01T06:16:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JVM之Classloader学习总结">
-<meta name="twitter:description" content="Java Classloader学习总结我们都知道Java程序都是运行在 JVM (Java Virtual Machine) 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以.class结尾的二进制文件而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。 而在Java中有3中内置类型的ClassLoader，为别为:  Bootstr">
-<meta name="twitter:image" content="http://oenhappystone.github.io/images/classloader.png">
+<meta name="twitter:title" content="Spring Cloud Netflix Hystrix使用">
+<meta name="twitter:description" content="Netflix HystrixHystrix 是一个实现了断路器模式的组件，在微服务的多层调用环境中进行服务异常调用的链路传播。从而很好的保护众多其他服务,避免级联故障。 其组件功能性图示如下:  下面来介绍如何使用Hystrix.1.添加相应的依赖：1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/gro">
+<meta name="twitter:image" content="http://oenhappystone.github.io/images/HystrixFallback.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -145,49 +148,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JVM之Classloader学习总结" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-hystrix" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JVM之Classloader学习总结
+      Spring Cloud Netflix Hystrix使用
     </h1>
   
 
         
-        <a href="/2017/07/28/JVM之Classloader学习总结/" class="archive-article-date">
-  	<time datetime="2017-07-28T06:33:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-28</time>
+        <a href="/2017/08/01/hystrix/" class="archive-article-date">
+  	<time datetime="2017-08-01T06:15:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Java-Classloader学习总结"><a href="#Java-Classloader学习总结" class="headerlink" title="Java Classloader学习总结"></a>Java Classloader学习总结</h1><p>我们都知道Java程序都是运行在 <code>JVM (Java Virtual Machine)</code> 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以<code>.class</code>结尾的二进制文件<br>而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。</p>
-<p>而在Java中有3中内置类型的ClassLoader，为别为:</p>
-<ol>
-<li><code>Bootstrap Class Loader</code></li>
-<li><code>Extensions Class Loader</code></li>
-<li><code>APP Class Loader</code>(也被称为<code>System Class Loader</code>)</li>
-</ol>
-<p>它们之间的关系我整理如下图所示：</p>
-<p><img src="/images/classloader.png" alt="JavaClassLoader"></p>
-<h2 id="Java中class是如何加载到JVM中的"><a href="#Java中class是如何加载到JVM中的" class="headerlink" title="Java中class是如何加载到JVM中的"></a>Java中class是如何加载到JVM中的</h2><ol>
-<li><code>Class</code>加载到JVM中有三个步骤</li>
-</ol>
-<p><code>装载（loading）</code>：找到class对应的字节码文件。<br><code>连接（linking）</code>：将对应的字节码文件读入到JVM中。<br><code>初始化（initializing）</code>：对class做相应的初始化动作。</p>
-<ol>
-<li>Java中两种加载Class到JVM中的方式</li>
-</ol>
-<p>2.1：Class.forName(“className”);<br>其实这种方法调运的是：Class.forName(className, true, ClassLoader.getCallerClassLoader())方法</p>
-<p>参数一：className，需要加载的类的名称。<br>参数二：true，是否对class进行初始化（需要initialize）<br>参数三：classLoader，对应的类加载器</p>
-<p>2.2：ClassLoader.laodClass(“className”);<br>其实这种方法调运的是：ClassLoader.loadClass(name, false)方法</p>
-<p>参数一：name,需要加载的类的名称</p>
-<p>参数二：false，这个类加载以后是否需要去连接（不需要linking）</p>
-<p>2.3:两种方式的区别</p>
-<p>forName(“className”)得到的class是已经初始化完成的<br>loadClass(“className”)得到的class是还没有连接的<br>一般情况下，这两个方法效果一样，都能装载Class。<br>但如果程序依赖于Class是否被初始化，就必须用Class.forName(name)了。</p>
+        <h1 id="Netflix-Hystrix"><a href="#Netflix-Hystrix" class="headerlink" title="Netflix Hystrix"></a>Netflix Hystrix</h1><p>Hystrix 是一个实现了断路器模式的组件，在微服务的多层调用环境中进行服务异常调用的链路传播。从而很好的保护众多其他服务,避免级联故障。</p>
+<p>其组件功能性图示如下:</p>
+<p><img src="/images/HystrixFallback.png" alt="HystrixFallback"></p>
+<h2 id="下面来介绍如何使用Hystrix"><a href="#下面来介绍如何使用Hystrix" class="headerlink" title="下面来介绍如何使用Hystrix."></a>下面来介绍如何使用Hystrix.</h2><p>1.添加相应的依赖：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-cloud-starter-hystrix&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure></p>
+<p>2.在启动类或者Configuration类上加上   <code>@EnableCircuitBreaker</code> 注解。并针对需要调用的业务方法进行fallback拦截方法，主要用到的是<br>    <code>@HystrixCommand</code> 注解。其示例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line">    * Created by happy on 2017/7/6.</div><div class="line">    */</div><div class="line">   <span class="meta">@RestController</span></div><div class="line">   <span class="meta">@RequestMapping</span>(<span class="string">"/user"</span>)</div><div class="line">   <span class="meta">@Slf</span>4j</div><div class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserApi</span> </span>&#123;</div><div class="line">       <span class="meta">@Autowired</span></div><div class="line">       <span class="keyword">private</span> UserService userService;</div><div class="line"></div><div class="line">       <span class="meta">@GetMapping</span>(value = <span class="string">"/get/&#123;account&#125;"</span>, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)</div><div class="line">       <span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"defaultGetUserByAccount"</span>)</div><div class="line">       <span class="function"><span class="keyword">public</span> User <span class="title">getUserByAccount</span><span class="params">(@PathVariable(<span class="string">"account"</span>)</span> String account) </span>&#123;</div><div class="line">           log.info(<span class="string">"I was invoked!!!"</span>);</div><div class="line">          <span class="keyword">return</span> userService.findUserByAccount(account);</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       <span class="function"><span class="keyword">public</span> User <span class="title">defaultGetUserByAccount</span><span class="params">(@PathVariable(<span class="string">"account"</span>)</span> String account)</span>&#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">new</span> User();</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>以上即可完成hystrix的应用，并且可以访问 <code>/hystrix</code> 来访问  <code>hystrix</code>   相关信息。</p>
+<h1 id="Hystrix-Metrics-Stream"><a href="#Hystrix-Metrics-Stream" class="headerlink" title="Hystrix Metrics Stream"></a><font color="#FF9797">Hystrix Metrics Stream</font></h1><p>额外的，如果需要收集  <code>Hystrix Metrics</code>,可以通过添加 以下依赖来收集：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="Hystrix-Dashboard"><a href="#Hystrix-Dashboard" class="headerlink" title="Hystrix Dashboard"></a><font color="#FF9797">Hystrix Dashboard</font></h1><pre><code>这个是使用展示收集到的实现了hystrix接口的健康情况。
+</code></pre><p>Dashbord初始如下:</p>
+<p> <img src="/images/hystrix-dashboard.png" height="500" width="800"></p>
+<p>在Dashboard页面的<code>input</code>输入框输入需要监控的应用地址即可，如此处输入<code>http://localhost:10003/hystrix.stream</code>,然后点击下方<code>Monitor Stream</code><br>按钮，则监控图如下：</p>
+<p><img src="/images/hystrix-stream.png" alt="hystrix-stream"></p>
 
       
 
@@ -217,6 +209,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Spring Cloud</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -267,7 +270,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://oenhappystone.github.io/2017/07/28/JVM之Classloader学习总结/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://oenhappystone.github.io/2017/08/01/hystrix/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -281,18 +284,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/01/hystrix/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Spring Cloud Netflix Hystrix使用
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/07/28/druid-SQL解析源码分析/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">druid-SQL解析源码分析</div>
+    <a href="/2017/07/28/JVM之Classloader学习总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JVM之Classloader学习总结</div>
       <i class="icon-circle-right"></i>
     </a>
   
