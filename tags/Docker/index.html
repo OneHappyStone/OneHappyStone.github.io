@@ -6,20 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://oenhappystone.github.io">
-  <title>JVM之Classloader学习总结 | Hexo</title>
+  <title>Tag: Docker | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java Classloader学习总结我们都知道Java程序都是运行在 JVM (Java Virtual Machine) 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以.class结尾的二进制文件而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。 而在Java中有3中内置类型的ClassLoader，为别为:  Bootstr">
-<meta property="og:type" content="article">
-<meta property="og:title" content="JVM之Classloader学习总结">
-<meta property="og:url" content="http://oenhappystone.github.io/2017/07/28/JVM之Classloader学习总结/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://oenhappystone.github.io/tags/Docker/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Java Classloader学习总结我们都知道Java程序都是运行在 JVM (Java Virtual Machine) 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以.class结尾的二进制文件而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。 而在Java中有3中内置类型的ClassLoader，为别为:  Bootstr">
-<meta property="og:image" content="http://oenhappystone.github.io/images/classloader.png">
-<meta property="og:updated_time" content="2017-07-28T07:05:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JVM之Classloader学习总结">
-<meta name="twitter:description" content="Java Classloader学习总结我们都知道Java程序都是运行在 JVM (Java Virtual Machine) 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以.class结尾的二进制文件而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。 而在Java中有3中内置类型的ClassLoader，为别为:  Bootstr">
-<meta name="twitter:image" content="http://oenhappystone.github.io/images/classloader.png">
+<meta name="twitter:title" content="Hexo">
   
   
     <link rel="icon" href="/favicon.png">
@@ -145,185 +139,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JVM之Classloader学习总结" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      JVM之Classloader学习总结
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/08/16/docker/" class="archive-article-date">
+  	<time datetime="2017-08-16T09:14:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-16</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/08/16/docker/">Docker和Dockerfile相关操作</a>
     </h1>
   
 
-        
-        <a href="/2017/07/28/JVM之Classloader学习总结/" class="archive-article-date">
-  	<time datetime="2017-07-28T06:33:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Java-Classloader学习总结"><a href="#Java-Classloader学习总结" class="headerlink" title="Java Classloader学习总结"></a>Java Classloader学习总结</h1><p>我们都知道Java程序都是运行在 <code>JVM (Java Virtual Machine)</code> 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以<code>.class</code>结尾的二进制文件<br>而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。</p>
-<p>而在Java中有3中内置类型的ClassLoader，为别为:</p>
-<ol>
-<li><code>Bootstrap Class Loader</code></li>
-<li><code>Extensions Class Loader</code></li>
-<li><code>APP Class Loader</code>(也被称为<code>System Class Loader</code>)</li>
-</ol>
-<p>它们之间的关系我整理如下图所示：</p>
-<p><img src="/images/classloader.png" alt="JavaClassLoader"></p>
-<h2 id="Java中class是如何加载到JVM中的"><a href="#Java中class是如何加载到JVM中的" class="headerlink" title="Java中class是如何加载到JVM中的"></a>Java中class是如何加载到JVM中的</h2><ol>
-<li><code>Class</code>加载到JVM中有三个步骤</li>
-</ol>
-<p><code>装载（loading）</code>：找到class对应的字节码文件。<br><code>连接（linking）</code>：将对应的字节码文件读入到JVM中。<br><code>初始化（initializing）</code>：对class做相应的初始化动作。</p>
-<ol>
-<li>Java中两种加载Class到JVM中的方式</li>
-</ol>
-<p>2.1：Class.forName(“className”);<br>其实这种方法调运的是：Class.forName(className, true, ClassLoader.getCallerClassLoader())方法</p>
-<p>参数一：className，需要加载的类的名称。<br>参数二：true，是否对class进行初始化（需要initialize）<br>参数三：classLoader，对应的类加载器</p>
-<p>2.2：ClassLoader.laodClass(“className”);<br>其实这种方法调运的是：ClassLoader.loadClass(name, false)方法</p>
-<p>参数一：name,需要加载的类的名称</p>
-<p>参数二：false，这个类加载以后是否需要去连接（不需要linking）</p>
-<p>2.3:两种方式的区别</p>
-<p>forName(“className”)得到的class是已经初始化完成的<br>loadClass(“className”)得到的class是还没有连接的<br>一般情况下，这两个方法效果一样，都能装载Class。<br>但如果程序依赖于Class是否被初始化，就必须用Class.forName(name)了。</p>
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-      
+          
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://oenhappystone.github.io/2017/07/28/JVM之Classloader学习总结/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/08/01/hystrix/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Spring Cloud Netflix Hystrix使用
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/07/28/druid-SQL解析源码分析/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">druid-SQL解析源码分析</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
+    
 
 
           </div>
@@ -346,9 +215,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

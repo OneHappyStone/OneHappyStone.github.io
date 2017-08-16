@@ -6,20 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://oenhappystone.github.io">
-  <title>JVM之Classloader学习总结 | Hexo</title>
+  <title>Docker和Dockerfile相关操作 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java Classloader学习总结我们都知道Java程序都是运行在 JVM (Java Virtual Machine) 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以.class结尾的二进制文件而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。 而在Java中有3中内置类型的ClassLoader，为别为:  Bootstr">
+  <meta name="description" content="Docker常用命令 docker inspect CONTAINER_ID  查看该容器相关配置信息，包括容器依赖，网络配置等   docker exec -it CONTAINER_NAME_OR_ID /bin/sh 登录宿主机后执行该命令,可以进入容器shell   docker run [OPTIONS] IMAGE [COMMAND] [ARG...] 启动容器,如： docker r">
+<meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM之Classloader学习总结">
-<meta property="og:url" content="http://oenhappystone.github.io/2017/07/28/JVM之Classloader学习总结/index.html">
+<meta property="og:title" content="Docker和Dockerfile相关操作">
+<meta property="og:url" content="http://oenhappystone.github.io/2017/08/16/docker/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Java Classloader学习总结我们都知道Java程序都是运行在 JVM (Java Virtual Machine) 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以.class结尾的二进制文件而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。 而在Java中有3中内置类型的ClassLoader，为别为:  Bootstr">
-<meta property="og:image" content="http://oenhappystone.github.io/images/classloader.png">
-<meta property="og:updated_time" content="2017-07-28T07:05:36.000Z">
+<meta property="og:description" content="Docker常用命令 docker inspect CONTAINER_ID  查看该容器相关配置信息，包括容器依赖，网络配置等   docker exec -it CONTAINER_NAME_OR_ID /bin/sh 登录宿主机后执行该命令,可以进入容器shell   docker run [OPTIONS] IMAGE [COMMAND] [ARG...] 启动容器,如： docker r">
+<meta property="og:updated_time" content="2017-08-16T09:15:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JVM之Classloader学习总结">
-<meta name="twitter:description" content="Java Classloader学习总结我们都知道Java程序都是运行在 JVM (Java Virtual Machine) 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以.class结尾的二进制文件而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。 而在Java中有3中内置类型的ClassLoader，为别为:  Bootstr">
-<meta name="twitter:image" content="http://oenhappystone.github.io/images/classloader.png">
+<meta name="twitter:title" content="Docker和Dockerfile相关操作">
+<meta name="twitter:description" content="Docker常用命令 docker inspect CONTAINER_ID  查看该容器相关配置信息，包括容器依赖，网络配置等   docker exec -it CONTAINER_NAME_OR_ID /bin/sh 登录宿主机后执行该命令,可以进入容器shell   docker run [OPTIONS] IMAGE [COMMAND] [ARG...] 启动容器,如： docker r">
   
   
     <link rel="icon" href="/favicon.png">
@@ -145,50 +144,126 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JVM之Classloader学习总结" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-docker" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JVM之Classloader学习总结
+      Docker和Dockerfile相关操作
     </h1>
   
 
         
-        <a href="/2017/07/28/JVM之Classloader学习总结/" class="archive-article-date">
-  	<time datetime="2017-07-28T06:33:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-28</time>
+        <a href="/2017/08/16/docker/" class="archive-article-date">
+  	<time datetime="2017-08-16T09:14:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Java-Classloader学习总结"><a href="#Java-Classloader学习总结" class="headerlink" title="Java Classloader学习总结"></a>Java Classloader学习总结</h1><p>我们都知道Java程序都是运行在 <code>JVM (Java Virtual Machine)</code> 上的，当我们编译一个Java Class时，他被编译成平台和机器无关的并且以<code>.class</code>结尾的二进制文件<br>而当我们需要使用这个Class时，Java ClassLoader就将它加载到内存中。</p>
-<p>而在Java中有3中内置类型的ClassLoader，为别为:</p>
-<ol>
-<li><code>Bootstrap Class Loader</code></li>
-<li><code>Extensions Class Loader</code></li>
-<li><code>APP Class Loader</code>(也被称为<code>System Class Loader</code>)</li>
+        <h1 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h1><ol>
+<li><code>docker inspect CONTAINER_ID</code> <blockquote>
+<p>查看该容器相关配置信息，包括容器依赖，网络配置等</p>
+</blockquote>
+</li>
+<li><code>docker exec -it CONTAINER_NAME_OR_ID /bin/sh</code><blockquote>
+<p>登录宿主机后执行该命令,可以进入容器shell</p>
+</blockquote>
+</li>
+<li><code>docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</code> 启动容器,如：<blockquote>
+<p>docker run -itd –name=cloud-trubine –net=host  -p 11111:11111 docker-zhuxb.chinacloudapp.cn:5000/cloud-turbine:1.0-SNAPSHOT</p>
+</blockquote>
+</li>
+<li><code>docker images [-a]</code> <blockquote>
+<p>查看本地registry中的所有reponsitorys（仓库）</p>
+</blockquote>
+</li>
+<li><code>docker ps [-a]</code><blockquote>
+<p>不加-a，则默认查看当前在运行的容器，加-a则查询所有容器</p>
+</blockquote>
+</li>
+<li><code>docker push IMAGE[:TAG]</code><blockquote>
+<p>把自己创建的镜像上传到仓库中来共享,不跟:TAG,则默认查找tag为 <code>latest</code></p>
+</blockquote>
+</li>
+<li><code>docker tag IMAGE[:TAG] NEWIMAGE[:TAG]</code><blockquote>
+<p>给本地某个镜像打一个TAG,不跟:TAG,则默认查找tag为<code>latest</code></p>
+</blockquote>
+</li>
+<li><p>docker rmi IMAGE[:TAG]</p>
+<blockquote>
+<p>删除本地镜像，不跟:TAG,则默认查找tag为<code>latest</code></p>
+<p>docker rmi -f $( docker images | grep “”| awk ‘{print $3}’ | sort –r ) #删除所有镜像(注意：在删除镜像之前要先用 docker rm 删掉依赖于这个镜像的所有容器。)</p>
+</blockquote>
+</li>
+<li><code>docker stop|start|restart [containerId|containerName]</code><blockquote>
+<p>停止容器|启动容器|重启容器</p>
+</blockquote>
+</li>
+<li><code>docker logs [containerId|containerName]</code><blockquote>
+<p>要获取容器的输出信息</p>
+</blockquote>
+</li>
+<li><p><code>docker rm [-f] [containerId|containerName]</code></p>
+<blockquote>
+<p>删除一个处于终止状态的容器,如果要删除一个运行中的容器，可以添加 -f 参数.</p>
+<p>删除所有容器 <code>docker rm $(docker ps –a –q)</code></p>
+</blockquote>
+</li>
 </ol>
-<p>它们之间的关系我整理如下图所示：</p>
-<p><img src="/images/classloader.png" alt="JavaClassLoader"></p>
-<h2 id="Java中class是如何加载到JVM中的"><a href="#Java中class是如何加载到JVM中的" class="headerlink" title="Java中class是如何加载到JVM中的"></a>Java中class是如何加载到JVM中的</h2><ol>
-<li><code>Class</code>加载到JVM中有三个步骤</li>
-</ol>
-<p><code>装载（loading）</code>：找到class对应的字节码文件。<br><code>连接（linking）</code>：将对应的字节码文件读入到JVM中。<br><code>初始化（initializing）</code>：对class做相应的初始化动作。</p>
-<ol>
-<li>Java中两种加载Class到JVM中的方式</li>
-</ol>
-<p>2.1：Class.forName(“className”);<br>其实这种方法调运的是：Class.forName(className, true, ClassLoader.getCallerClassLoader())方法</p>
-<p>参数一：className，需要加载的类的名称。<br>参数二：true，是否对class进行初始化（需要initialize）<br>参数三：classLoader，对应的类加载器</p>
-<p>2.2：ClassLoader.laodClass(“className”);<br>其实这种方法调运的是：ClassLoader.loadClass(name, false)方法</p>
-<p>参数一：name,需要加载的类的名称</p>
-<p>参数二：false，这个类加载以后是否需要去连接（不需要linking）</p>
-<p>2.3:两种方式的区别</p>
-<p>forName(“className”)得到的class是已经初始化完成的<br>loadClass(“className”)得到的class是还没有连接的<br>一般情况下，这两个方法效果一样，都能装载Class。<br>但如果程序依赖于Class是否被初始化，就必须用Class.forName(name)了。</p>
-
+<h1 id="Dockerfile文件详解"><a href="#Dockerfile文件详解" class="headerlink" title="Dockerfile文件详解"></a>Dockerfile文件详解</h1><p><code>FROM</code>:</p>
+<pre><code>语法：FROM &lt;image&gt;[:&lt;tag&gt;]
+解释：设置要制作的镜像基于哪个镜像，FROM指令必须是整个Dockerfile的第一个指令，如果指定的镜像不存在默认会自动从Docker Hub上下载。
+</code></pre><p><code>MAINTAINER</code>:</p>
+<pre><code>语法：MAINTAINER &lt;name&gt;
+解释：MAINTAINER指令允许你给将要制作的镜像设置作者信息
+</code></pre><p><code>RUN</code>:</p>
+<pre><code>语法： ①RUN &lt;command&gt;        #将会调用/bin/sh -c &lt;command&gt;
+      ②RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]   #将会调用exec执行，以避免有些时候shell方式执行时的传递参数问题，而且有些基础镜像可能不包含/bin/sh
+解释：RUN指令会在一个新的容器中执行任何命令，然后把执行后的改变提交到当前镜像，提交后的镜像会被用于Dockerfile中定义的下一步操作，RUN中定义的命令会按顺序执行并提交，这正是Docker廉价的提交和可以基于镜像的任何一个历史点创建容器的好处，就像版本控制工具一样
+</code></pre><p><code>CMD</code>:</p>
+<pre><code>语法：①CMD [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]    #将会调用exec执行，首选方式
+     ②CMD [&quot;param1&quot;, &quot;param2&quot;]        #当使用ENTRYPOINT指令时，为该指令传递默认参数
+     ③CMD &lt;command&gt; [ &lt;param1&gt;|&lt;param2&gt; ]        #将会调用/bin/sh -c执行
+解释：CMD指令中指定的命令会在镜像运行时执行，在Dockerfile中只能存在一个，如果使用了多个CMD指令，则只有最后一个CMD指令有效。当出现ENTRYPOINT指令时，CMD中定义的内容会作为ENTRYPOINT指令的默认参数，也就是说可以使用CMD指令给ENTRYPOINT传递参数。
+注意：RUN和CMD都是执行命令，他们的差异在于RUN中定义的命令会在执行docker build命令创建镜像时执行，而CMD中定义的命令会在执行docker run命令运行镜像时执行，另外使用第一种语法也就是调用exec执行时，命令必须为绝对路径。
+</code></pre><p><code>EXPOSE</code>:</p>
+<pre><code>语法：EXPOSE &lt;port&gt; [ ...]
+解释：EXPOSE指令用来告诉Docker这个容器在运行时会监听哪些端口，Docker在连接不同的容器(使用–link参数)时使用这些信息
+</code></pre><p><code>ENV</code>:</p>
+<pre><code>语法：ENV &lt;key&gt; &lt;value&gt;
+解释：ENV指令用于设置环境变量，在Dockerfile中这些设置的环境变量也会影响到RUN指令，当运行生成的镜像时这些环境变量依然有效，如果需要在运行时更改这些环境变量可以在运行docker run时添加–env &lt;key&gt;=&lt;value&gt;参数来修改。
+注意：最好不要定义那些可能和系统预定义的环境变量冲突的名字，否则可能会产生意想不到的结果
+</code></pre><p><code>ADD</code>:</p>
+<pre><code>语法：ADD &lt;src&gt; &lt;dest&gt;
+解释：ADD指令用于从指定路径拷贝一个文件或目录到容器的指定路径中，&lt;src&gt;是一个文件或目录的路径，也可以是一个url，路径是相对于该Dockerfile文件所在位置的相对路径，&lt;dest&gt;是目标容器的一个绝对路径，例如/home/yooke/Docker/Dockerfile这个文件中定义的，那么ADD /data.txt /db/指令将会尝试拷贝文件从/home/yooke/Docker/data.txt到将要生成的容器的/db/data.txt，且文件或目录的属组和属主分别为uid和gid为0的用户和组，如果是通过url方式获取的文件，则权限是600。
+注意：①如果执行docker build – &lt; somefile即通过标准输入来创建时，ADD指令只支持url方式，另外如果url需要认证，则可以通过RUN wget …或RUN curl …来完成，ADD指令不支持认证。
+  ②&lt;src&gt;路径必须与Dockerfile在同级目录或子目录中，例如不能使用ADD ../somepath，因为在执行docker build时首先做的就是把Dockerfile所在目录包含子目录发送给docker的守护进程。
+  ③如果&lt;src&gt;是一个url且&lt;dest&gt;不是以”/“结尾，则会下载文件并重命名为&lt;dest&gt;。
+  ④如果&lt;src&gt;是一个url且&lt;dest&gt;以“/”结尾，则会下载文件到&lt;dest&gt;/&lt;filename&gt;，url必须是一个正常的路径形式，“http://example.com”像这样的url是不能正常工作的。
+  ⑤如果&lt;src&gt;是一个本地的压缩包且&lt;dest&gt;是以“/”结尾的目录，则会调用“tar -x”命令解压缩，如果&lt;dest&gt;有同名文件则覆盖，但&lt;src&gt;是一个url时不会执行解压缩
+</code></pre><p><code>COPY</code>:</p>
+<pre><code>语法：COPY &lt;src&gt; &lt;dest&gt;
+解释：用法与ADD相同，不过&lt;src&gt;不支持使用url，所以在使用docker build – &lt; somefile时该指令不能使用。
+</code></pre><p><code>ENTRYPOINT</code>:</p>
+<pre><code>语法：①ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]        #将会调用exec执行，首选方式
+  ②ENTRYPOINT command param1 param2             #将会调用/bin/sh -c执行
+解释：ENTRYPOINT指令中指定的命令会在镜像运行时执行，在Dockerfile中只能存在一个，如果使用了多个ENTRYPOINT指令，则只有最后一个指令有效。ENTRYPOINT指令中指定的命令(exec执行的方式)可以通过docker run来传递参数，例如docker run &lt;images&gt; -l启动的容器将会把-l参数传递给ENTRYPOINT指令定义的命令并会覆盖CMD指令中定义的默认参数(如果有的话)，但不会覆盖该指令定义的参数，例如ENTRYPOINT [&quot;ls&quot;,&quot;-a&quot;]，CMD [&quot;/etc&quot;],当通过docker run &lt;image&gt;启动容器时该容器会运行ls -a /etc命令，当使用docker run &lt;image&gt; -l启动时该容器会运行ls -a -l命令，-l参数会覆盖CMD指令中定义的/etc参数。
+注意：①当使用ENTRYPOINT指令时生成的镜像运行时只会执行该指令指定的命令。
+  ②当出现ENTRYPOINT指令时CMD指令只可能(当ENTRYPOINT指令使用exec方式执行时)被当做ENTRYPOINT指令的参数使用，其他情况则会被忽略
+</code></pre><p><code>VOLUME</code>:</p>
+<pre><code>语法：VOLUME [&quot;samepath&quot;]
+解释：VOLUME指令用来设置一个挂载点，可以用来让其他容器挂载以实现数据共享或对容器数据的备份、恢复或迁移，具体用法请参考其他文章
+</code></pre><p><code>USER</code>:</p>
+<pre><code>语法：USER [username|uid]
+解释：USER指令用于设置用户或uid来运行生成的镜像和执行RUN指令
+</code></pre><p><code>WORKDIR</code>:</p>
+<pre><code>语法：WORKDIR /path/to/workdir
+解释：WORKDIR指令用于设置Dockerfile中的RUN、CMD和ENTRYPOINT指令执行命令的工作目录(默认为/目录)，该指令在Dockerfile文件中可以出现多次，如果使用相对路径则为相对于WORKDIR上一次的值，例如WORKDIR /data，WORKDIR logs，RUN pwd最终输出的当前目录是/data/logs
+</code></pre>
       
 
       
@@ -217,6 +292,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -267,7 +353,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://oenhappystone.github.io/2017/07/28/JVM之Classloader学习总结/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://oenhappystone.github.io/2017/08/16/docker/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -281,18 +367,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/01/hystrix/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Spring Cloud Netflix Hystrix使用
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/07/28/druid-SQL解析源码分析/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">druid-SQL解析源码分析</div>
+    <a href="/2017/08/02/Sharding-jdbc-transcational/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Sharding-jdbc-transcational</div>
       <i class="icon-circle-right"></i>
     </a>
   
